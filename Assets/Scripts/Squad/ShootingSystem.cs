@@ -1,35 +1,44 @@
-using Pooling;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Rendering;
+using Unity.Transforms;
 
 namespace Squad
 {
+    [BurstCompile]
     public partial struct ShootingSystem : ISystem
     {
+        [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            //var poolingSystem = SystemAPI.GetSingleton<PoolData>();
-
+            state.RequireForUpdate<BrawlerData>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var job = new ShootingSystemJob()
+            foreach (var brawler in SystemAPI.Query<RefRW<BrawlerData>>())
             {
-          //      PoolSystem = poolingSystem
-            };
-           // job.ScheduleParallel();
+                brawler.ValueRW.ShootTimer -= SystemAPI.Time.DeltaTime;
+                
+                if (brawler.ValueRO.ShootTimer > 0)
+                    continue;
+
+                brawler.ValueRW.ShootTimer = brawler.ValueRO.ShootInterval;
+                Shoot(ref state, brawler.ValueRO.ShootPos);
+            }
         }
 
         [BurstCompile]
-        public partial struct ShootingSystemJob : IJobEntity
+        private void Shoot(ref SystemState state, float3 shootPos)
         {
-            public PoolSystem PoolSystem;
-            
-            public void Execute()
+            foreach (var (transform, entity) in SystemAPI.Query<RefRW<LocalTransform>>().WithDisabled<Projectile>().WithEntityAccess())
             {
-                PoolSystem.Shoot();
+                state.EntityManager.SetComponentEnabled<Projectile>(entity, true);
+                transform.ValueRW.Position = shootPos + new float3(0, 0, 1f);
+                break;
             }
         }
     }

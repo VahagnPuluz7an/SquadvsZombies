@@ -1,11 +1,12 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace Squad
+namespace Squad.Authoring
 {
     public class BrawlerAuthoring : MonoBehaviour
     {
-        [SerializeField] private float shootSpeed;
+        [SerializeField] private float shootInterval;
+        [SerializeField] private Transform shootPos;
         
         private class BrawlerBaker : Baker<BrawlerAuthoring>
         {
@@ -14,7 +15,8 @@ namespace Squad
                 var entity = GetEntity(TransformUsageFlags.Renderable);
                 AddComponent(entity, new BrawlerData()
                 {
-                    ShootSpeed = authoring.shootSpeed
+                    ShootInterval = authoring.shootInterval,
+                    ShootPos = authoring.shootPos.position,
                 });
             }
         }
