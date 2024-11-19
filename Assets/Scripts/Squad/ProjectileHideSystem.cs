@@ -1,10 +1,11 @@
 using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Rendering;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace Squad
 {
+    [UpdateAfter(typeof(ProjectilePoolSystem))]
     public partial struct ProjectileHideSystem : ISystem
     {
         [BurstCompile]
@@ -16,25 +17,10 @@ namespace Squad
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var ecb = new EntityCommandBuffer(Allocator.Temp);
-            
-            foreach (var (projectile, entity) in SystemAPI.Query<RefRO<Projectile>>().WithEntityAccess())
+            foreach (var (transform,projectile, entity) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Projectile>>().WithDisabled<Projectile>().WithEntityAccess())
             {
-                if (state.EntityManager.HasComponent<RenderBounds>(entity))
-                    continue;
-                
-                ecb.AddComponent<RenderBounds>(entity);
+                transform.ValueRW.Position = new float3(-1000f, -1000f, -1000f);
             }
-            
-            foreach (var (projectile, entity) in SystemAPI.Query<RefRO<Projectile>>().WithDisabled<Projectile>().WithEntityAccess())
-            {
-                if (!state.EntityManager.HasComponent<RenderBounds>(entity))
-                    continue;
-                
-                ecb.RemoveComponent<RenderBounds>(entity);
-            }
-            
-            ecb.Playback(state.EntityManager);
         }
     }
 }

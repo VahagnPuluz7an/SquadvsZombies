@@ -19,8 +19,8 @@ namespace Squad
         {
             foreach (var (transform, projectile,entity) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Projectile>>().WithEntityAccess())
             {
-                transform.ValueRW.Position += new float3(0, 0, projectile.ValueRO.Speed) * SystemAPI.Time.DeltaTime;
-
+                transform.ValueRW.Position += transform.ValueRW.Forward() * SystemAPI.Time.DeltaTime * projectile.ValueRO.Speed;
+                
                 if (transform.ValueRO.Position.z > 100)
                 {
                     state.EntityManager.SetComponentEnabled<Projectile>(entity, false);

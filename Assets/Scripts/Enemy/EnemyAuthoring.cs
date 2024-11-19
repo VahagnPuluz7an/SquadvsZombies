@@ -14,7 +14,7 @@ namespace Enemy
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new EnemyData()
                 {
-                    MovementSpeed = authoring.movementSpeed
+                    MovementSpeed = authoring.movementSpeed,
                 });
             }
         }

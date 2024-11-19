@@ -1,10 +1,11 @@
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace Enemy
 {
+    [BurstCompile]
     public partial struct EnemyMovementSystem : ISystem
     {
         [BurstCompile]
@@ -26,7 +27,7 @@ namespace Enemy
             {
                 var finalPos = transform.Position;
                 finalPos.z = 0;
-                transform.Position = Vector3.Lerp(transform.Position, finalPos, DeltaTime * enemyData.MovementSpeed);
+                transform.Position = math.lerp(transform.Position, finalPos, DeltaTime * enemyData.MovementSpeed);
             }
         }
     }

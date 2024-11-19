@@ -2,7 +2,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 public struct EnemyData : IComponentData
-{ 
+{
     public float MovementSpeed;
 }
 
@@ -15,7 +15,8 @@ public struct BrawlerData : IComponentData
 {
     public float ShootInterval;
     public float ShootTimer;
-    public float3 ShootPos;
+    public Entity ShootPos;
+    public Entity Aim;
 }
 
 public struct ProjectilePoolConfig : IComponentData

@@ -1,4 +1,5 @@
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -8,30 +9,57 @@ namespace Squad
     [BurstCompile]
     public partial class ProjectilePoolSystem : SystemBase
     {
+        private bool _startCountSpawned;
+        
         [BurstCompile]
         protected override void OnCreate()
         {
             RequireForUpdate<ProjectilePoolConfig>();
         }
-    
+
         [BurstCompile]
         protected override void OnUpdate()
         {
-            Enabled = false;
             var config = SystemAPI.GetSingleton<ProjectilePoolConfig>();
             
-            for (int i = 0; i < config.StartCount; i++)
+            if (!_startCountSpawned)
             {
-                var newEntity = EntityManager.Instantiate(config.PrefabEntity);
+                SpawnNewProjectiles(config, config.StartCount);
+                _startCountSpawned = true;
+                return;
+            }
+            
+            bool hasProjectile = false;
 
-                EntityManager.SetComponentData(newEntity, new LocalTransform()
+            foreach (var transform in SystemAPI.Query<RefRW<LocalTransform>>().WithDisabled<Projectile>())
+            {
+                hasProjectile = true;
+                break;
+            } 
+            
+            if (hasProjectile || !config.AutoExpanding)
+                return;
+
+            SpawnNewProjectiles(config,20);
+        }
+
+        [BurstCompile]
+        private void SpawnNewProjectiles(ProjectilePoolConfig config ,int count)
+        {
+            var ecb = new EntityCommandBuffer(Allocator.Persistent);
+            for (int i = 0; i < count; i++)
+            {
+                var newEntity = ecb.Instantiate(config.PrefabEntity);
+                
+                ecb.SetComponentEnabled<Projectile>(newEntity, false);
+                ecb.SetComponent(newEntity, new LocalTransform()
                 {
-                    Position = float3.zero,
+                    Position = new float3(-1000f, -1000f, -1000f),
                     Rotation = quaternion.identity,
                     Scale = 1
                 });
-                EntityManager.SetComponentEnabled<Projectile>(newEntity, false);
             }
+            ecb.Playback(EntityManager);
         }
     }
 }
