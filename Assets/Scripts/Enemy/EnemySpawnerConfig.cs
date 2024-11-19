@@ -6,6 +6,7 @@ namespace Enemy
     {
         public Entity EnemyPrefab;
         public int SpawnCount;
+        public float Spread;
         public Entity SpawnPoint;
     }
 }

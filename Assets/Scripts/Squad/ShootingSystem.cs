@@ -40,7 +40,7 @@ namespace Squad
             float minDistance = float.MaxValue;
             var closestEnemy = new RefRW<LocalTransform>();
             
-            foreach (var enemyTransform in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<EnemyData>())
+            foreach (var enemyTransform in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<ShowEntityTag>().WithAll<EnemyData>())
             {
                 float distance = math.distance(enemyTransform.ValueRO.Position, brawlerLocal.Position);
                 
@@ -53,16 +53,16 @@ namespace Squad
 
             var aimTransform = state.EntityManager.GetComponentData<LocalTransform>(brawler.Aim);
             var aimWorldTransform = state.EntityManager.GetComponentData<LocalToWorld>(brawler.Aim);
-            aimTransform.Rotation = quaternion.LookRotation(math.normalize(closestEnemy.ValueRO.Position - aimWorldTransform.Position), math.forward());
+            aimTransform.Rotation = quaternion.LookRotation(math.normalize(closestEnemy.ValueRO.Position + new float3(0,0.5f,0f) - aimWorldTransform.Position), math.forward());
             state.EntityManager.SetComponentData(brawler.Aim, aimTransform);
         }
 
         [BurstCompile]
         private void Shoot(ref SystemState state, float3 shootPos, float3 aimPos)
         {
-            foreach (var (transform, entity) in SystemAPI.Query<RefRW<LocalTransform>>().WithDisabled<Projectile>().WithEntityAccess())
+            foreach (var (transform,projectile, entity) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Projectile>>().WithDisabled<ShowEntityTag>().WithEntityAccess())
             {
-                state.EntityManager.SetComponentEnabled<Projectile>(entity, true);
+                state.EntityManager.SetComponentEnabled<ShowEntityTag>(entity, true);
                 transform.ValueRW.Position = shootPos;
                 transform.ValueRW.Rotation = quaternion.LookRotation(math.normalize(shootPos - aimPos), math.forward());
                 break;

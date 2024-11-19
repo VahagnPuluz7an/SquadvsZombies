@@ -32,7 +32,7 @@ namespace Enemy
                 
                 ecb.SetComponent(newEntity, new LocalTransform()
                 {
-                    Position = spawnPointPos + new float3(random.NextFloat(-5f,5f),0, i / 10f),
+                    Position = spawnPointPos + new float3(random.NextFloat(-6.5f,6.5f),0, i / config.Spread),
                     Rotation = quaternion.identity,
                     Scale = 1
                 });

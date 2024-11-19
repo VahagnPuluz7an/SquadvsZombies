@@ -13,7 +13,7 @@ namespace Enemy
         {
             var movementJob = new EnemyMovementSystemJob()
             {
-                DeltaTime = SystemAPI.Time.fixedDeltaTime
+                DeltaTime = SystemAPI.Time.DeltaTime
             };
             movementJob.ScheduleParallel();
         }

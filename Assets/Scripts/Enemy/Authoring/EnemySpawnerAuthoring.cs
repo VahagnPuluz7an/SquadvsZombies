@@ -7,6 +7,7 @@ namespace Enemy
     {
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private int spawnCount;
+        [SerializeField] private int spread;
         [SerializeField] private GameObject spawnPoint;
         
         private class EnemySpawnerAuthoringBaker : Baker<EnemySpawnerAuthoring>
@@ -18,6 +19,7 @@ namespace Enemy
                 {
                     EnemyPrefab = GetEntity(authoring.enemyPrefab, TransformUsageFlags.Dynamic),
                     SpawnCount = authoring.spawnCount,
+                    Spread = authoring.spread,
                     SpawnPoint = GetEntity(authoring.spawnPoint, TransformUsageFlags.Dynamic),
                 });
             }

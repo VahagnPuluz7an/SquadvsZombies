@@ -31,7 +31,7 @@ namespace Squad
             
             bool hasProjectile = false;
 
-            foreach (var transform in SystemAPI.Query<RefRW<LocalTransform>>().WithDisabled<Projectile>())
+            foreach (var projectile in SystemAPI.Query<RefRO<Projectile>>().WithDisabled<ShowEntityTag>())
             {
                 hasProjectile = true;
                 break;
@@ -51,7 +51,7 @@ namespace Squad
             {
                 var newEntity = ecb.Instantiate(config.PrefabEntity);
                 
-                ecb.SetComponentEnabled<Projectile>(newEntity, false);
+                ecb.SetComponentEnabled<ShowEntityTag>(newEntity, false);
                 ecb.SetComponent(newEntity, new LocalTransform()
                 {
                     Position = new float3(-1000f, -1000f, -1000f),

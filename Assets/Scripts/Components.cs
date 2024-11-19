@@ -1,14 +1,14 @@
 using Unity.Entities;
-using Unity.Mathematics;
 
 public struct EnemyData : IComponentData
 {
     public float MovementSpeed;
 }
 
-public struct Projectile : IComponentData, IEnableableComponent
+public struct Projectile : IComponentData
 {
     public float Speed;
+    public float Radius;
 }
 
 public struct BrawlerData : IComponentData

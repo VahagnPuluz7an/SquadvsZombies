@@ -427,6 +427,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6223708494176856833, guid: 9288a834e0e3149739a0843288a9fcbe,
     type: 3}
   spawnCount: 1000
+  spread: 2
   spawnPoint: {fileID: 1514682614}
 --- !u!1001 &1741050039
 PrefabInstance:

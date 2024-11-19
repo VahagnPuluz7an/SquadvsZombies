@@ -6,6 +6,7 @@ namespace Squad.Authoring
     public class ProjectileAuthoring : MonoBehaviour
     {
         [SerializeField] private float speed;
+        [SerializeField] private float physicsRadius;
         
         private class ProjectileBaker : Baker<ProjectileAuthoring>
         {
@@ -14,9 +15,16 @@ namespace Squad.Authoring
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Projectile()
                 {
-                    Speed = authoring.speed
+                    Speed = authoring.speed,
+                    Radius = authoring.physicsRadius
                 });
+                AddComponent(entity, new ShowEntityTag());
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawSphere(transform.position,physicsRadius);
         }
     }
 }

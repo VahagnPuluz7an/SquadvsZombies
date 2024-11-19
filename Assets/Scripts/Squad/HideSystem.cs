@@ -6,18 +6,18 @@ using Unity.Transforms;
 namespace Squad
 {
     [UpdateAfter(typeof(ProjectilePoolSystem))]
-    public partial struct ProjectileHideSystem : ISystem
+    public partial struct HideSystem : ISystem
     {
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<Projectile>();
+            state.RequireForUpdate<ShowEntityTag>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (transform,projectile, entity) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Projectile>>().WithDisabled<Projectile>().WithEntityAccess())
+            foreach (var transform in SystemAPI.Query<RefRW<LocalTransform>>().WithDisabled<ShowEntityTag>())
             {
                 transform.ValueRW.Position = new float3(-1000f, -1000f, -1000f);
             }
