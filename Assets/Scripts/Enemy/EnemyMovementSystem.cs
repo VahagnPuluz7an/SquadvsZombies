@@ -23,11 +23,12 @@ namespace Enemy
         {
             public float DeltaTime;
             
+            [BurstCompile]
             private void Execute(ref LocalTransform transform, in EnemyData enemyData)
             {
-                var finalPos = transform.Position;
-                finalPos.z = 0;
-                transform.Position = math.lerp(transform.Position, finalPos, DeltaTime * enemyData.MovementSpeed);
+                if (transform.Position.z < 0)
+                    return;
+                transform = transform.Translate(new float3(0, 0, -1 * enemyData.MovementSpeed * DeltaTime));
             }
         }
     }

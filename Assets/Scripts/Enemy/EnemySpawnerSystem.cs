@@ -29,10 +29,12 @@ namespace Enemy
             for (int i = 0; i < config.SpawnCount; i++)
             {
                 var newEntity = ecb.Instantiate(config.EnemyPrefab);
+
+                var pos = spawnPointPos + new float3(random.NextFloat(-6.5f, 6.5f), 0, i / config.Spread);
                 
                 ecb.SetComponent(newEntity, new LocalTransform()
                 {
-                    Position = spawnPointPos + new float3(random.NextFloat(-6.5f,6.5f),0, i / config.Spread),
+                    Position = pos,
                     Rotation = quaternion.identity,
                     Scale = 1
                 });

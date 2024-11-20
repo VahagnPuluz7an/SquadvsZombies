@@ -1,4 +1,6 @@
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 
 public struct EnemyData : IComponentData
 {
@@ -24,4 +26,9 @@ public struct ProjectilePoolConfig : IComponentData
     public Entity PrefabEntity;
     public int StartCount;
     public bool AutoExpanding;
+}
+
+public struct PrefabBrawlerBuffer : IBufferElementData
+{
+    public Entity Prefab;
 }

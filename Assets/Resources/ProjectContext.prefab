@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c548d88abf09494bbb187245d5c882c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brawlersScriptable: {fileID: 11400000, guid: f8a6968e1f80744adb8d198efb0ef6db, type: 2}
 --- !u!1 &6526143123515824645
 GameObject:
   m_ObjectHideFlags: 0
