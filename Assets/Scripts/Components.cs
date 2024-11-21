@@ -1,6 +1,4 @@
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 
 public struct EnemyData : IComponentData
 {
@@ -17,6 +15,7 @@ public struct BrawlerData : IComponentData
 {
     public float ShootInterval;
     public float ShootTimer;
+    public float Damage;
     public Entity ShootPos;
     public Entity Aim;
 }

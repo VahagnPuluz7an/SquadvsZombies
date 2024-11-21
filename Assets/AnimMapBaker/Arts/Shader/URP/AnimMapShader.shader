@@ -10,6 +10,7 @@ Shader "chenjd/URP/AnimMapShader"
 		_MainTex ("Texture", 2D) = "white" {}
 		_AnimMap ("AnimMap", 2D) ="white" {}
 		_AnimLen("Anim Length", Float) = 0
+	    _Color ("Main Color", Color) = (0,0,0,0)
 	}
 	
     SubShader
@@ -50,6 +51,7 @@ Shader "chenjd/URP/AnimMapShader"
                 float4 _MainTex_ST;
                 sampler2D _AnimMap;
                 float4 _AnimMap_TexelSize;//x == 1/width
+                float4 _Color;
             CBUFFER_END 
             
             float4 ObjectToClipPos (float3 pos)
@@ -79,7 +81,7 @@ Shader "chenjd/URP/AnimMapShader"
             float4 frag (v2f i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv);
-                return col;
+                return col * _Color;
             }
             ENDHLSL
         }

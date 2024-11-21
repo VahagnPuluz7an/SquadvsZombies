@@ -1,3 +1,4 @@
+using Enemy;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -22,13 +23,13 @@ namespace Squad
         
         protected override void OnUpdate()
         {
-            var ecb = new EntityCommandBuffer(Allocator.Temp);
+            if (_brawlerIndex < 0)
+                return;
+            
+            var ecb = new EntityCommandBuffer(Allocator.Persistent);
             
             foreach (var buffer in SystemAPI.Query<DynamicBuffer<PrefabBrawlerBuffer>>())
             {
-                if (_brawlerIndex < 0)
-                    return;
-                
                 var prefab = buffer[_brawlerIndex].Prefab;
                 var instance = ecb.Instantiate(prefab);
                 

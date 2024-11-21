@@ -6,6 +6,7 @@ namespace Enemy
     public class EnemyAuthoring : MonoBehaviour
     {
         [SerializeField] private float movementSpeed;
+        [SerializeField] private float maxHp;
         
         private class EnemyBaker : Baker<EnemyAuthoring>
         {

@@ -46,13 +46,14 @@ public class AnimMapBakerWindow : EditorWindow {
     {
         EditorWindow.GetWindow(typeof(AnimMapBakerWindow));
         _baker = new AnimMapBaker();
-        var shaderName = GraphicsSettings.renderPipelineAsset != null ? URPShader : BuiltInShader;
-        _animMapShader = Shader.Find(shaderName);
+        //var shaderName = URPShader;
+        //_animMapShader = Shader.Find(shaderName);
     }
 
     private void OnGUI()
     {
         _targetGo = (GameObject)EditorGUILayout.ObjectField(_targetGo, typeof(GameObject), true);
+        _animMapShader = (Shader)EditorGUILayout.ObjectField(_animMapShader, typeof(Shader), false);
         _subPath = _targetGo == null ? _subPath : _targetGo.name;
         EditorGUILayout.LabelField(string.Format($"Output Path: {Path.Combine(_path, _subPath)}"));
         _path = EditorGUILayout.TextField(_path);
