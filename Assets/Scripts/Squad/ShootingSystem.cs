@@ -60,7 +60,7 @@ namespace Squad
         [BurstCompile]
         private void Shoot(ref SystemState state, float3 shootPos, float3 aimPos)
         {
-            foreach (var (transform,projectile, entity) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Projectile>>().WithDisabled<ShowEntityTag>().WithEntityAccess())
+            foreach (var (transform, entity) in SystemAPI.Query<RefRW<LocalTransform>>().WithAll<Projectile>().WithDisabled<ShowEntityTag>().WithEntityAccess())
             {
                 state.EntityManager.SetComponentEnabled<ShowEntityTag>(entity, true);
                 transform.ValueRW.Position = shootPos;

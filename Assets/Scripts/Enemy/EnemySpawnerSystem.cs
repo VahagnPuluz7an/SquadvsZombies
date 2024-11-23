@@ -30,7 +30,7 @@ namespace Enemy
             {
                 var newEntity = ecb.Instantiate(config.EnemyPrefab);
 
-                var pos = spawnPointPos + new float3(random.NextFloat(-6.5f, 6.5f), 0, i / config.Spread);
+                var pos = spawnPointPos + new float3(random.NextFloat(-5f, 5f), 0, i / config.Spread);
                 
                 ecb.SetComponent(newEntity, new LocalTransform()
                 {
