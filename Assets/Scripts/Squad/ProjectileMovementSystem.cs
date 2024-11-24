@@ -30,7 +30,7 @@ namespace Squad
                 CollidesWith = 1u << GameAssets.UNITS_LAYER,
                 GroupIndex = 0,
             };
-                
+            
             foreach (var (transform, projectile,entity) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Projectile>>().WithEntityAccess())
             {
                 hitList.Clear();
@@ -38,15 +38,25 @@ namespace Squad
                 newVector.y = 0;
                 transform.ValueRW.Position += newVector;
                 collisionWorld.OverlapSphere(transform.ValueRO.Position, projectile.ValueRO.Radius, ref hitList, collisionFilter);
-                
-                if (math.length(transform.ValueRO.Position) > 100 || !hitList.IsEmpty)
+
+                if (math.length(transform.ValueRO.Position) > 100)
                 {
                     state.EntityManager.SetComponentEnabled<ShowEntityTag>(entity, false);
+                    continue;
+                }
 
-                    foreach (var hit in hitList)
-                    {
-                        state.EntityManager.SetComponentEnabled<ShowEntityTag>(hit.Entity, false);
-                    }
+                if (hitList.IsEmpty)
+                    continue;
+                
+                state.EntityManager.SetComponentEnabled<ShowEntityTag>(entity, false);
+      
+                
+                foreach (var hit in hitList)
+                {
+                    state.EntityManager.SetComponentEnabled<ShowEntityTag>(hit.Entity, false);
+                    
+                    state.EntityManager.SetComponentData(hit.Entity, new ParticleData(pos: hit.Position));
+                    state.EntityManager.SetComponentEnabled<ParticleData>(hit.Entity, true);
                 }
             }
         }

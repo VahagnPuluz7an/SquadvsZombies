@@ -6,7 +6,6 @@ namespace Squad.Authoring
     public class BrawlerAuthoring : MonoBehaviour
     {
         [SerializeField] private float shootInterval;
-        [SerializeField] private float damage;
         [SerializeField] private GameObject shootPos;
         [SerializeField] private GameObject aimRotate;
         
@@ -20,7 +19,6 @@ namespace Squad.Authoring
                     ShootInterval = authoring.shootInterval,
                     ShootPos = GetEntity(authoring.shootPos, TransformUsageFlags.Dynamic),
                     Aim = GetEntity(authoring.aimRotate, TransformUsageFlags.Dynamic),
-                    Damage = authoring.damage,
                 });
             }
         }

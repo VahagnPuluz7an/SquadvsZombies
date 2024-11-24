@@ -1,4 +1,6 @@
 using Unity.Entities;
+using Unity.Mathematics;
+using UnityEngine;
 
 public struct EnemyData : IComponentData
 {
@@ -15,7 +17,6 @@ public struct BrawlerData : IComponentData
 {
     public float ShootInterval;
     public float ShootTimer;
-    public float Damage;
     public Entity ShootPos;
     public Entity Aim;
 }
@@ -30,4 +31,14 @@ public struct ProjectilePoolConfig : IComponentData
 public struct PrefabBrawlerBuffer : IBufferElementData
 {
     public Entity Prefab;
+}
+
+public struct ParticleData : IComponentData, IEnableableComponent
+{
+    public float3 Pos;
+
+    public ParticleData(float3 pos)
+    {
+        Pos = pos;
+    }
 }

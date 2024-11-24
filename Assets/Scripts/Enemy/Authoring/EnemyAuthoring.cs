@@ -18,6 +18,7 @@ namespace Enemy
                     MovementSpeed = authoring.movementSpeed,
                 });
                 AddComponent(entity, new ShowEntityTag());
+                AddComponent(entity, new ParticleData());
             }
         }
     }

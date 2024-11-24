@@ -13,10 +13,11 @@ namespace Squad.Authoring
             public override void Bake(ProjectileAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
+
                 AddComponent(entity, new Projectile()
                 {
                     Speed = authoring.speed,
-                    Radius = authoring.physicsRadius
+                    Radius = authoring.physicsRadius,
                 });
                 AddComponent(entity, new ShowEntityTag());
             }
