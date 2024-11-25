@@ -1,10 +1,10 @@
 using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
 
 public struct EnemyData : IComponentData
 {
     public float MovementSpeed;
+    public bool IsDead;
 }
 
 public struct Projectile : IComponentData

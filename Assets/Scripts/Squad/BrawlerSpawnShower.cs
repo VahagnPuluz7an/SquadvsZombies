@@ -39,7 +39,7 @@ namespace Squad
         private void BrawlerSpawnUIOnOnPointerDrag(int buttonIndex)
         {
             if (_newBrawler == null)
-                _newBrawler = Instantiate(_brawlersScriptable.Brawlers[buttonIndex]);
+                _newBrawler = Instantiate(_brawlersScriptable.Brawlers[buttonIndex].Brawler);
 
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, _layerMask))

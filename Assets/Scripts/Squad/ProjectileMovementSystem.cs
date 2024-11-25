@@ -49,14 +49,14 @@ namespace Squad
                     continue;
                 
                 state.EntityManager.SetComponentEnabled<ShowEntityTag>(entity, false);
-      
                 
                 foreach (var hit in hitList)
                 {
-                    state.EntityManager.SetComponentEnabled<ShowEntityTag>(hit.Entity, false);
-                    
                     state.EntityManager.SetComponentData(hit.Entity, new ParticleData(pos: hit.Position));
-                    state.EntityManager.SetComponentEnabled<ParticleData>(hit.Entity, true);
+                    
+                    var enemy = state.EntityManager.GetComponentData<EnemyData>(hit.Entity);
+                    enemy.IsDead = true;
+                    state.EntityManager.SetComponentData(hit.Entity, enemy);
                 }
             }
         }

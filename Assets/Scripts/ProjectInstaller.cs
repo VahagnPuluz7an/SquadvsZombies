@@ -1,4 +1,6 @@
+using Coins;
 using Squad;
+using Squad.UI;
 using UnityEngine;
 using Zenject;
 
@@ -10,5 +12,8 @@ public class ProjectInstaller : MonoInstaller
     {
         Container.BindInterfacesTo<ApplicationSettings>().AsSingle();
         Container.Bind<BrawlersScriptable>().FromInstance(brawlersScriptable).AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<CoinsCounter>().AsSingle();
+        Container.Bind<CoinsUI>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<BrawlerSpawnUI>().FromComponentsInHierarchy().AsCached();
     }
 }

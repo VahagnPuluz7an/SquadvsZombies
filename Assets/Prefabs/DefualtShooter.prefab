@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootInterval: 0.2
-  damage: 1
   shootPos: {fileID: 3511268869960697639}
   aimRotate: {fileID: 808698886690745579}
 --- !u!1 &3511268869960697639
@@ -244,31 +243,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3125422650957018935, guid: 4a5a452d4b7974f7db69bf82bc431a09,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036004049338736453, guid: 4a5a452d4b7974f7db69bf82bc431a09,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036004049338736453, guid: 4a5a452d4b7974f7db69bf82bc431a09,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036004049338736453, guid: 4a5a452d4b7974f7db69bf82bc431a09,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036004049338736453, guid: 4a5a452d4b7974f7db69bf82bc431a09,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036004049338736453, guid: 4a5a452d4b7974f7db69bf82bc431a09,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1

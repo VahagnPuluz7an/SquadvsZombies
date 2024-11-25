@@ -1,4 +1,5 @@
 using System;
+using Enemy;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Particles
         
         private void Awake()
         {
-            ParticlePlaySystem.ParticleEnabled += PlayHitFx;
+            EnemyDeadSystem.EnemyDead += PlayHitFx;
             
             _hitFxs = new ParticleSystem[hitFXCount];
 
@@ -26,7 +27,7 @@ namespace Particles
 
         private void OnDestroy()
         {
-            ParticlePlaySystem.ParticleEnabled -= PlayHitFx;
+            EnemyDeadSystem.EnemyDead -= PlayHitFx;
         }
 
         private void PlayHitFx(float3 pos)

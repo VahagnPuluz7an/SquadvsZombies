@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: BrawlersScriptable
   m_EditorClassIdentifier: 
   <Brawlers>k__BackingField:
-  - {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd, type: 3}
-  - {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd, type: 3}
-  - {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd, type: 3}
+  - Brawler: {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd,
+      type: 3}
+    Price: 50
+  - Brawler: {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd,
+      type: 3}
+    Price: 100
+  - Brawler: {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd,
+      type: 3}
+    Price: 150
+  - Brawler: {fileID: 1490988096107425606, guid: e3bfdd8a2283745ce9e07253c32b5bfd,
+      type: 3}
+    Price: 200

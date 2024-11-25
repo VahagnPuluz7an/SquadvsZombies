@@ -1,7 +1,6 @@
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
-using Zenject;
 
 namespace Squad.Authoring
 {
@@ -13,13 +12,13 @@ namespace Squad.Authoring
         {
             public override void Bake(BrawlerSpawnConfigAuthoring authoring)
             {
-                var prefabs = authoring.brawlersScriptable.Brawlers;
+                var brawlersData = authoring.brawlersScriptable.Brawlers;
                 
-                var entityArray = new NativeArray<Entity>(prefabs.Length, Allocator.Persistent);
+                var entityArray = new NativeArray<Entity>(brawlersData.Length, Allocator.Persistent);
                 
-                for (int i = 0; i < prefabs.Length; i++)
+                for (int i = 0; i < brawlersData.Length; i++)
                 {
-                    entityArray[i] = GetEntity(prefabs[i], TransformUsageFlags.Dynamic);
+                    entityArray[i] = GetEntity(brawlersData[i].Brawler, TransformUsageFlags.Dynamic);
                 }
 
                 var entity = CreateAdditionalEntity(TransformUsageFlags.None);
