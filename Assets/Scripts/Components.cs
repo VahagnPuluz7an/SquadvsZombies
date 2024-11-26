@@ -13,12 +13,24 @@ public struct Projectile : IComponentData
     public float Radius;
 }
 
-public struct BrawlerData : IComponentData
+public struct ShooterBrawlerData : IComponentData
 {
     public float ShootInterval;
     public float ShootTimer;
     public Entity ShootPos;
     public Entity Aim;
+}
+
+public struct MoneyGiverBrawlerData : IComponentData
+{
+    public float GiveInterval;
+    public float GiveTimer;
+}
+
+public enum BrawlerType
+{
+    Shooter = 0,
+    MoneyGiver = 1,
 }
 
 public struct ProjectilePoolConfig : IComponentData

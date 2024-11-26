@@ -28,6 +28,7 @@ namespace Coins
             _passiveIncome = PlayerPrefs.GetInt(PassiveIncomeCountKey);
             EnemyDeadSystem.EnemyDead += EnemyDeadSystemOnEnemyDead;
             BrawlerSpawnUI.Bought += RemoveCoins;
+            AddPassiveIncome(5);
         }
         
         public void Tick()

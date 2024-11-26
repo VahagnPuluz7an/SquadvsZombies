@@ -7,7 +7,7 @@ namespace Squad
 {
     public partial class BrawlerSpawnSystem : SystemBase
     {
-        private int _brawlerIndex;
+        private int _brawlerIndex = -1;
         private float3 _pos;
         
         protected override void OnCreate()

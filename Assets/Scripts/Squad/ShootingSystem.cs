@@ -13,13 +13,13 @@ namespace Squad
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<BrawlerData>();
+            state.RequireForUpdate<ShooterBrawlerData>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (transform,brawler) in SystemAPI.Query<RefRW<LocalTransform>,RefRW<BrawlerData>>())
+            foreach (var (transform,brawler) in SystemAPI.Query<RefRW<LocalTransform>,RefRW<ShooterBrawlerData>>())
             {
                 brawler.ValueRW.ShootTimer -= SystemAPI.Time.DeltaTime;
                 
@@ -35,7 +35,7 @@ namespace Squad
         }
 
         [BurstCompile]
-        private void Aim(ref SystemState state, ref BrawlerData brawler, ref LocalTransform brawlerLocal)
+        private void Aim(ref SystemState state, ref ShooterBrawlerData shooterBrawler, ref LocalTransform brawlerLocal)
         {
             float minDistance = float.MaxValue;
             var closestEnemy = new RefRW<LocalTransform>();
@@ -51,10 +51,10 @@ namespace Squad
                 closestEnemy = enemyTransform;
             }
 
-            var aimTransform = state.EntityManager.GetComponentData<LocalTransform>(brawler.Aim);
-            var aimWorldTransform = state.EntityManager.GetComponentData<LocalToWorld>(brawler.Aim);
+            var aimTransform = state.EntityManager.GetComponentData<LocalTransform>(shooterBrawler.Aim);
+            var aimWorldTransform = state.EntityManager.GetComponentData<LocalToWorld>(shooterBrawler.Aim);
             aimTransform.Rotation = quaternion.LookRotation(math.normalize(closestEnemy.ValueRO.Position + new float3(0,0.5f,0f) - aimWorldTransform.Position), math.forward());
-            state.EntityManager.SetComponentData(brawler.Aim, aimTransform);
+            state.EntityManager.SetComponentData(shooterBrawler.Aim, aimTransform);
         }
 
         [BurstCompile]
